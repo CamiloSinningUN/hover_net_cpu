@@ -159,6 +159,7 @@ class InferManager(base.InferManager):
         patterning = lambda x: re.sub("([\[\]])", "[\\1]", x)
         file_path_list = glob.glob(patterning("%s/*" % self.input_dir))
         file_path_list.sort()  # ensure same order
+        
         assert len(file_path_list) > 0, 'Not Detected Any Files From Path'
         
         rm_n_mkdir(self.output_dir + '/json/')
@@ -285,6 +286,11 @@ class InferManager(base.InferManager):
             dataset = SerializeFileList(
                 cache_image_list, cache_patch_info_list, self.patch_input_shape
             )
+
+
+            self.batch_size = 2
+            print(self.batch_size)
+            print()
 
             dataloader = data.DataLoader(
                 dataset,
